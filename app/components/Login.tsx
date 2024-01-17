@@ -1,36 +1,21 @@
 
 import React, { useState } from 'react';
-import * as Yup from 'Yup';
-import {useFormik} from 'formik'
+
 
 type toggleProp = {
      onToggle: () => void;
     }
 
-const Login: React.FC<toggleProp> = ({onToggle}) => {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+ const Login: React.FC<toggleProp> = ({onToggle}) => {
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      password: '',
-    },
-  validationSchema: Yup.object({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-  }),
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
 
-  onSubmit: (values) => {
-    // Handle form submission logic here
-    console.log('Form Values:', values);
-  },
-});
- 
+   
+  
   return (
     <>   
-          <form  onSubmit={formik.handleSubmit} className="mt-12 flex flex-col items-center">
+          <form  className="mt-12 flex flex-col items-center">
                 <h1 className="text-2xl xl:text-3xl font-extrabold">
                     Sign in
                 </h1>
@@ -46,21 +31,19 @@ const Login: React.FC<toggleProp> = ({onToggle}) => {
                     <div className="mx-auto max-w-xs">
                         <input
                             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                            type="text" placeholder="Username" value={userName} 
-                            onTouchStart={formik.handleChange}               
+                            type="text" placeholder="Username" value={userName}            
                             onChange={x => setUserName (x.target.value)}/>
                            
-                            {formik.touched.name && formik.errors.name && <div>{formik.errors.name}</div>}
+                            
                        
                         <input
                             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="password" placeholder="Password" 
-                            onTouchStart={formik.handleChange}               
-                            onChange={x => setUserName (x.target.value)}/>
+                            type="password" placeholder="Password"  value={password}               
+                            onChange={x => setPassword (x.target.value)}/>
                            
-                            {formik.touched.name && formik.errors.name && <div>{formik.errors.name}</div>}
+                        
 
-                        <button type='submit'
+                        <button type='submit' 
                             className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                             <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                 strokeLinecap="round" strokeLinejoin="round">
@@ -75,9 +58,8 @@ const Login: React.FC<toggleProp> = ({onToggle}) => {
                         </button>
                     </div>
                 </div>
+         
             </form>
   </>
-  );
-};
-
+  )};
 export default Login;
