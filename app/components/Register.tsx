@@ -2,7 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import RegisterValidationSchema, {initialValues} from '../Validation/ValidationForm'
-
+import { register } from '../api/Auth';
+import { JWT } from '../types/JWT'
 
 
 type toggleProp = {
@@ -11,14 +12,25 @@ type toggleProp = {
 const Register: React.FC<toggleProp> = ({onToggle}) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [subscribeToNewsLetter, setSubscribeToNewsLetter] = useState('');
-  const [gender, setGender] = useState('');
-  const [status, setStatus] = useState('');
-  const [yearOfBirth, setYearOfBirth] = useState('');
+
   
 
+  const handleLogin = async (username: string, password: string): Promise<void> => {
+    try {
+      const jwt: JWT = await register(username, password) 
+      const token =    (await register(username,password)).token
+     localStorage.setItem('token', token)
+     console.log(token);
+      // redirect to home login
+    } catch (error: any) {
+       console.log(ErrorMessage)
+    };
+  };
 
+  const onsubmit = async () => {
+   await handleLogin(userName, password)
+   
+  }  
   return (
     <>
        <h3 className='text-sm font-bold text-gray-800'>You  have an account ? <span  className='text-sm font-bold text-gray-800 cursor-pointer' onClick={onToggle}>Login</span></h3>
@@ -34,19 +46,19 @@ onSubmit={(values, { setSubmitting }) => {
 }}>   
     {({ isSubmitting }) => (
 
-<Form className="bg-white p-6 rounded-lg">
+<Form className="bg-white p-6 rounded-lg" onSubmit={onsubmit}>
 
   <div className="m-0 ">
     <ErrorMessage name="username" component="div" className="text-red-600 text-sm mt-0" />
     <label htmlFor="username" className="block mb-1 text-sm font-bold text-gray-800">Username</label>
-    <Field name="username" type="text" className="border border-gray-400 p-0 w-full rounded-lg" />
+    <Field name="username" type="text"  onClick={(e: any) => setUserName(e.target.name)} className="border border-gray-400 p-0 w-full rounded-lg" />
     
   </div>
   
   <div className="mb-0">
      <ErrorMessage name="password" component="div" className="text-red-600 w-2/3 text-sm mt-0 " />
     <label htmlFor="password" className="block mb-0 text-sm font-bold w-1/3 text-gray-800">Password</label>
-    <Field name="password" type="password" className="border border-gray-400 p-0 w-full rounded-lg" />
+    <Field name="password" type="password"   onClick={(e: any) => setPassword(e.target.name)} className="border border-gray-400 p-0 w-full rounded-lg" />
     
 
   <div className="mb-0">

@@ -7,7 +7,7 @@ const products: Product[] = [
     name: 'Product 1',
     price: 100,
   },
-  // ... more products
+
 ]
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Product[]>) {
