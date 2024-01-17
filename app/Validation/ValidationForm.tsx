@@ -12,12 +12,20 @@ const RegisterValidationSchema = Yup.object().shape({
  confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Required'),
+    yearOfBirth: Yup.number().min(1900,'not less then 1900').max(2024, 'not more then 2024'),
+    subscribeToNewsLetter: Yup.boolean().optional().required(),
+    gender: Yup.string().required(),
 });
+
 
 export const initialValues = {
  username: '',
  password: '',
  confirmPassword: '',
+ yearOfBirth: '',
+ subscribeToNewsLetter: false,
+ gender: 'male',
+ status: 'active',
 };
 
 export default RegisterValidationSchema

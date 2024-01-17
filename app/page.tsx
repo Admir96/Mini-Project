@@ -14,7 +14,6 @@ import Home from './pages/Home';
     <>  
 <Navbar/> 
 <Home/> 
-<Footer/>
 
 </>
 );};
