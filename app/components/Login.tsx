@@ -15,7 +15,7 @@ type toggleProp = {
   
     return (
         <>
-           <h3>You dont have an account ? <span onClick={onToggle}>Register</span></h3>
+          <h3 className='text-sm font-bold text-gray-800'>You dont have an account ? <span  className='text-sm font-bold text-gray-800 cursor-pointer' onClick={onToggle}>Register</span></h3>
         <Formik
     initialValues={initialValues}
     validationSchema={RegisterValidationSchema}
