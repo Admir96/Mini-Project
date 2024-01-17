@@ -21,7 +21,7 @@ const Register: React.FC<toggleProp> = ({onToggle}) => {
 
   return (
     <>
-       <h3 className='text-sm font-bold text-gray-800'>You dont have an account ? <span  className='text-sm font-bold text-gray-800 cursor-pointer' onClick={onToggle}>Register</span></h3>
+       <h3 className='text-sm font-bold text-gray-800'>You  have an account ? <span  className='text-sm font-bold text-gray-800 cursor-pointer' onClick={onToggle}>Login</span></h3>
     <Formik
 initialValues={initialValues}
 validationSchema={RegisterValidationSchema}
@@ -63,27 +63,27 @@ onSubmit={(values, { setSubmitting }) => {
     
   </div>
 
-  <div className="mb-0">
+  <div className="mb-1">
     <ErrorMessage name="gender" component="div" className="text-red-600 text-sm mt-0" />
     <label htmlFor="gender" className="block mb-0 text-sm font-bold text-gray-800">Gender</label>
-    <Field name="gender" as="select" className="border border-gray-400 p-2 w-full rounded-lg">
+    <Field name="gender" as="select" className="border border-gray-400 p-1 w-full rounded-lg text-sm font-bold text-gray-800">
           <option className='text-sm font-bold text-gray-800' defaultValue="male"selected>male</option>
           <option  className='text-sm font-bold text-gray-800' defaultValue="famale">famale</option>
           <option   className='text-sm font-bold text-gray-800'defaultValue="other">other</option></Field>
   </div>
 
-  <div className="mb-0">
+  <div className="mb-1">
     <ErrorMessage name="Status" component="div" className="text-red-600 text-sm mt-0" />
-    <label htmlFor="Status" className="block mb-0 text-sm font-bold text-gray-800">Status</label>
-    <Field name="Status" as="select" className="border border-gray-400 p-2 w-full rounded-lg" >
+    <label htmlFor="Status" className="block mb-0  text-sm font-bold text-gray-800 ">Status</label>
+    <Field name="Status" as="select" className="border border-gray-400 p-1 w-full rounded-lg text-sm font-bold text-gray-800" >
             <option   className='text-sm font-bold text-gray-800'defaultValue="Active" selected>Active</option>
           <option  className='text-sm font-bold text-gray-800' defaultValue="Inactive">Inactive</option></Field>
   </div>
 
-  <div className="mb-0">
+  <div className="mb-1">
     <ErrorMessage name="yearOfBirth" component="div" className="text-red-600 text-sm mt-0" />
     <label htmlFor="yearOfBirth" className="block mb-0 text-sm font-bold text-gray-800">Year of birth</label>
-    <Field name="yearOfBirth" type="text" pattern="[0-9]+(\.[0-9]{1,2})?" className="border border-gray-400 p-1 w-full rounded-lg" />  
+    <Field name="yearOfBirth" type="text" pattern="[0-9]+(\.[0-9]{1,2})?" className="border border-gray-400 p-0 w-full rounded-lg" />  
   </div>
 
   </div>
