@@ -14,8 +14,7 @@ const options: any = {
       },
       async authorize(credentials : any){
         const user = credentials
-        // Add your own logic here to verify user credentials
-        // and return a user object if they are valid   
+
 
         if (user) {
             return Promise.resolve(user);
