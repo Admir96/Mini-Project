@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useState } from 'react';
 import RegisterValidationSchema, {initialValues} from '../Validation/ValidationForm'
-import { useRoute, rour } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { useSession } from "next-auth/react"
 
@@ -13,7 +13,7 @@ type toggleProp = {
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [session, loading] = useSession();
+    const [session, loading] = React.useState();
 
 
     if (session) {

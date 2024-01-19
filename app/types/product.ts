@@ -1,23 +1,20 @@
-const products = {
-  1: {
-    name: "Product name1",
-    price: 101,
-    linkedProducts: {
-      2: {
-        name: "Product name2",
-        price: 102
-      },
-      3: {
-        name: "Product name3",
-        price: 103
-      }
-    }
-  },
-  2: {
-    name: "Product name2",
-    price: 102
-  },
-  // Add more products here
-};
+class Product {
 
-export default products;
+    id:string;
+    name:string
+    price : number;
+    linkedProducts = {};
+
+  constructor( id:string, name:string,  price:number, linkedProducts = {}) {
+
+      this.id = id;
+      this.name = name;
+      this.price = price;
+      this.linkedProducts = linkedProducts;
+
+  }
+
+}
+
+
+export default Product;
