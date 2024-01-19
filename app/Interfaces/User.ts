@@ -1,7 +1,7 @@
-export interface User{
+export interface IUser{
     username: string 
     password: string 
-    repeatPassword: string
+    confirmPassword: string
      subscribeToNewsLetter: SubscribeToNewsLetter 
      gender: Gender 
      status: Status 
