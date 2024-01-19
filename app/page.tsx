@@ -1,10 +1,8 @@
 'use client'
 import './globals.css'
 import React from 'react';
-import Navbar from './components/navBar/NavBar';
 import { AppProps } from 'next/app';
 import {SessionProvider} from 'next-auth/react'
-
 
 
  const page = ({Component, pageProps} : AppProps) => {

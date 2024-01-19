@@ -4,6 +4,7 @@ import RegisterValidationSchema, {initialValues} from '../Validation/ValidationF
 import { useRouter } from 'next/navigation';
 
 import { useSession } from "next-auth/react"
+import Link from 'next/link';
 
 type toggleProp = {
      onToggle: () => void;
@@ -15,11 +16,9 @@ type toggleProp = {
     const [password, setPassword] = useState('');
     const [session, loading] = React.useState();
 
-
+    
     if (session) {
-  
-      router.push('/');
-  
+      const router = useRouter().push("/");
       return null;
   
     }

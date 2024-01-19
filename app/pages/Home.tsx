@@ -1,17 +1,19 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { generatePagination, filterProducts } from '@/app/utils';
-import { product  } from '@/app/types/product';
+import  Product   from '@/app/types/product';
 
-const PAGE_SIZE = 5;
+
+const PAGE_SIZE = 3;
 
 const Page = () => {
   const router = useRouter();
   const { query, page } = router.query;
   const [currentQuery, setCurrentQuery] = useState(query as string || '');
   const [currentPage, setCurrentPage] = useState(Number(page) || 1);
+  const [Product, setProduct] = useState<Product | null>(null);
 
-  const filteredProducts = filterProducts(product, currentQuery);
+  const filteredProducts = filterProducts(Product, currentQuery);
   const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE);
   const paginatedProducts = generatePagination(currentPage, totalPages).map(
     (page) => filteredProducts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -27,8 +29,20 @@ const Page = () => {
     router.push({ query: { ...router.query, page: newPage } }, undefined, { shallow: true });
   };
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch('/api/products?id=1');
+      const data = await response.json();
+      setProduct(data);
+    };
+    fetchProduct();
+
+  }, []);
+
   return (
     <div>
+      {Product ?(
+        <div>
       <h1>Product List</h1>
       <input
         type="text"
@@ -51,7 +65,10 @@ const Page = () => {
         ))}
       </div>
     </div>
+         ):(
+           <h3>Loading...</h3>     
+      )}
+       </div>
   );
 };
-
 export default Page;

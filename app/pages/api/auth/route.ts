@@ -33,6 +33,7 @@ const options: any = {
   callbacks: {
     async jwt(token : any, user: any) {
       if (user) {
+        token.accessToken = user.access_token
         token.id = user.id;
       }
       return token;
@@ -41,6 +42,12 @@ const options: any = {
       session.user.id = token.id;
       return session;
     },
+    async redirect( url:string, baseUrl:string ) {
+       
+        if (url.startsWith("/")) return `${baseUrl}${url}`
+      
+        else if (new URL(url).origin === baseUrl) return url
+        return baseUrl},
     pages: {
 
         login: '/auth/login',
