@@ -1,24 +1,17 @@
 'use client'
 import './globals.css'
-import React from 'react';
-import { AppProps } from 'next/app';
-import {SessionProvider} from 'next-auth/react'
-import Navbar from './components/navBar/NavBar';
+import AppPage from './pages/home';
 
 
- function home ({Component, pageProps} : AppProps) {
+ const App: React.FC = () => {
 
   return (
     <>
-<Navbar/>
-    <SessionProvider
-
-    session={pageProps.session}
-  >
-    <Component {...pageProps} />
-  </SessionProvider>
+<div className="container mx-auto">
+  <AppPage/>
+  </div>
   </>
+
 );
 };
-
-export default home;
+export default App;

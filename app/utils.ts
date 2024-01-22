@@ -1,5 +1,5 @@
-import Product from "./types/product";
 
+import axios from "axios";
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
     const startPage = Math.max(1, currentPage - 2);
@@ -15,45 +15,29 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 
   };
 
-
-  export const products = new Product(
-    "1",
-    "Product name1",
-    101,
-    {
-        "2": new Product(
-            "2",
-            "Product name2",
-            102
-        ),
-        "3": new Product(
-            "3",
-            "Product name3",
-            103
-        )
+   export const getProducts = ()=> {
+    return axios.get('https://junior-test.mntzdevs.com/api/products/',{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
+      },
     })
-    const product2 = new Product(
-     "2",
-      "Product name2",
-      102
-  
-  );
-  const product4 = new Product(
-    "4",
-    "Product name4",
-    104
-  );
-  const product5 = new Product(
-    "5",
-    "Product name5",
-    105
-  );
-  const product6 = new Product(
-    "5",
-    "Product name6",
-    105
-  );
-  const product7 = new Product(
-    "5",
-    "Product name7",
-    105);
+   }
+
+   export const login =async(username:string,password:string) => {
+    return axios.post('https://junior-test.mntzdevs.com/api/login/',{username,password})
+   }
+
+   export const register = async(data:any) => {
+   try{
+      await axios.post('https://junior-test.mntzdevs.com/api/register/', {
+        Headers:{
+          'Content-Type': 'application/json'
+        },
+        data : {...data}
+      });
+      const loginData = await login(data.username,data.password);
+      console.log(loginData.data)
+   } catch(error:any){console.log(error);}
+   }
+   
