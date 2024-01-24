@@ -1,17 +1,11 @@
-'use client'
-import './globals.css'
-import AppPage from './pages/home';
+import WelcomeSection from './WelcomeSection/page';
 
-
- const App: React.FC = () => {
+ const Home = () => {
 
   return (
     <>
-<div className="container mx-auto">
-  <AppPage/>
-  </div>
-  </>
-
-);
+   <WelcomeSection/> 
+   </>
+  );
 };
-export default App;
+export default Home;

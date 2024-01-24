@@ -1,16 +1,16 @@
-
+'use client'
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/app/utils';
+import './products.css'
 
-
-const Products: React.FC = () => {
+const Products: React.FC = ({}) => {
 
   const [products, setProduct] = useState({});
   const [loading,setLoading] = useState(true);
 
  
   useEffect(() => {
- getProducts().then((res) => res.data()).then((resp) => {
+ getProducts().then((res:any) => res.data()).then((resp:any) => {
   setProduct(resp.data);
   setLoading(false);
  });
@@ -18,31 +18,31 @@ const Products: React.FC = () => {
   
 
   return (
-    <div className='"container mx-auto"'>   
-        <div>
-      <h1>Product List</h1>
-      <input
+    <div className='products'>   
+        <div className='productsContent'>
+      <h1 className='productsTitle'>Product List</h1>
+      <input className='border border-gray-400 p-1 w-full rounded-lg'
         type="text"
         placeholder="Filter by product name..."/>
-        <table>
-        <thead>
+        <table className='productsTable'>
+        <thead className='productsThead'>
       <tr>
-          <th>Name</th>
-          <th>Price</th>          
-          <th>Linked Products</th>
+          <th className='productsTh'>Name</th>
+          <th className='productsTh'>Price</th>          
+          <th className='productsTh'>Linked Products</th>
        </tr>
         </thead>
 <tbody>
 
   {Object.values(products).map((product :any) =>(
     <tr key={product.id}>
-      <td>{product.name}</td>
-      <td>${product.price}</td>
-    <td>
+      <td className='productsTd'>{product.name}</td>
+      <td className='productsTd'>${product.price}</td>
+    <td className='productsTd'>
       {product.linkedProducts ? (
-        <ul>
+        <ul className='productsThead'>
           {Object.values(product.linkedProducts).map((linkedProduct:any) =>(
-            <li key={linkedProduct.name}>
+            <li className='productsTd' key={linkedProduct.name}>
               <span>{linkedProduct.name}</span> - ${linkedProduct.price}
             </li>
           ))}
@@ -60,8 +60,8 @@ const Products: React.FC = () => {
             page
           </button>
       </div>
-    </div>
            <h3>Loading...</h3>     
+    </div>
       
        </div>
   );

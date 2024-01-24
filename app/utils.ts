@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 export const generatePagination = (currentPage: number, totalPages: number) => {

@@ -1,0 +1,37 @@
+.products {
+    @apply bg-gray-900 min-h-screen flex items-center text-white;
+    padding: 0 2rem;
+  }
+  
+  .products-content {
+    @apply text-center mx-auto;
+    max-width: 1200px;
+  }
+  
+  .products-title {
+    @apply text-4xl font-bold mb-4;
+  }
+  
+  .products-subtitle {
+    @apply text-xl mb-8;
+  }
+  
+  .products-table {
+    @apply w-full bg-gray-800 text-white;
+  }
+  
+  .products-thead {
+    @apply bg-gray-700;
+  }
+  
+  .products-th {
+    @apply px-4 py-2;
+  }
+  
+  .products-td {
+    @apply border-b border-gray-600 px-4 py-2;
+  }
+  
+  .products-button {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
