@@ -6,42 +6,37 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { login } from '../utils';
 import './login.css'
+import { logUser } from "../interfaces/interfaces";
+
+
+
+
+
  const Login: React.FC= ({}) => {
 
-   const [Data,SetData] = useState({
-    username: "user",
-    password:"password"
-   });
+   const [username] = useState('');
+   const [password] = useState('');
+
    const router = useRouter();
-      
-   const handleSubmit = (x:any) =>{
-    x.preventDefault();
 
+
+    
+   const handleSubmit = (event:any) =>{
+
+    try{
     if(!!Form){
-      login(Data.username,Data.password).then(() => router.push('/products')); }
-
-      else{console.log("soething went wrong", ErrorMessage)}
-
+      const temp:logUser = {
+         name : username,
+         password: password
+        }
+     login(temp).then(() => router.push('/products')); 
     }
-
-    const handleChange = (event:any) =>{
-      const{name,value} = event.target;
-      switch(name){
-        case 'username':
-          SetData({
-            ...Data,
-            username:value,
-          });
-          break;
-          case 'password':
-            SetData({
-              ...Data,
-              password:value,
-            });
-            break; default:break;
-      }
-    }
-
+  } catch(error){
+    console.log(error);
+    alert('your username or password are not correct') ;
+  }
+}
+  
     return (
         <>
         <Formik
@@ -62,12 +57,12 @@ import './login.css'
  
         <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-0" />
         <label htmlFor="username" className="loginSubtitle">Username</label>
-        <Field {...handleChange} name="username" type="text" className="border border-gray-400 p-1 w-full rounded-lg" />
+        <Field  name="username" type="text" values = {username} className="border border-gray-400 p-1 w-full rounded-lg text-gray-800" />
         
 
          <ErrorMessage name="password" component="div" className="text-red-600 w-2/3 text-sm mt-0 " />
         <label htmlFor="password" className="loginSubtitle">Password</label>
-        <Field name="password" {...handleChange} type="password" className="border border-gray-400 p-1 w-full rounded-lg" />
+        <Field name="password" type="password"  values = {password} className="border border-gray-400 p-1 w-full rounded-lg text-gray-800" />
  
       <button type="submit" disabled={isSubmitting}  className="loginButton">
         Submit
@@ -79,8 +74,8 @@ import './login.css'
     </Formik>
                 </>
       );
-    };
- 
+  }
 export default Login;
 
 
+  

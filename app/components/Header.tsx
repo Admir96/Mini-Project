@@ -1,8 +1,8 @@
 'use client'
-import Link from "next/link";
+import Link from 'next/link';
 
 
-const  Header = ({toggle = false}, props:any)  => {
+const  Header = ({toggle = false})  => {
   const logout = () =>{
     localStorage.removeItem('token');
     window.location.href = '/';
@@ -14,7 +14,7 @@ const  Header = ({toggle = false}, props:any)  => {
         <Link href="/WelcomeSection">
             Home 
            </Link>
-{toggle ? <>
+{toggle ? <> 
   <Link href="/products">
             Product list
            </Link>

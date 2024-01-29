@@ -15,10 +15,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='dark'>
+    <html lang="en">
       <body>    
       <Header/>  
-      <script id="uetq">{`(function(w,d,t,r,u){....);`}</script>
       <main className={inter.className} >{children}</main>
     </body>
     </html>

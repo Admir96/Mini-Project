@@ -1,4 +1,70 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from 'axios'; 
+import {products, regUser, logUser} from './interfaces/interfaces'
+
+
+
+
+ axios.defaults.baseURL = 'https://junior-test.mntzdevs.com'; 
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('key');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);}
+  );
+
+
+export const getProducts = async () =>{ Promise<products[]>
+
+  let temp:products[] =[];
+  await axios.get<products[]>('/api/products/',{headers:{
+
+  'Content-Type': 'application/json',
+}})
+  .then((response: AxiosResponse<products[]>) => {
+   
+   temp = response.data as products[];
+   corsHeaders(response);
+    handleResponse(response);
+    console.log(response.data);
+
+  })
+  .catch((error) => {
+    console.log(error)
+  });
+  return temp;
+
+}
+
+
+  export const register = async (newUser:regUser) => {
+
+ return await axios.post<regUser>('/api/register/', newUser)
+  .then((response: AxiosResponse<regUser>) => {
+    corsHeaders(response);
+    handleResponse(response);
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error)
+  });
+}
+
+export const login = async(user:logUser) =>{
+
+  return await axios.post<logUser>('/api/login/', user)
+  .then((response: AxiosResponse<regUser>) => { 
+    corsHeaders(response);
+    handleResponse(response);
+    console.log(response.data);
+
+  })
+  .catch((error) => {
+    console.log(error)
+})
+}
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
     const startPage = Math.max(1, currentPage - 2);
@@ -14,29 +80,22 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 
   };
 
-   export const getProducts = ()=> {
-    return axios.get('https://junior-test.mntzdevs.com/api/products/',{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${localStorage.getItem('token')}`
-      },
-    })
-   }
+  function handleResponse(response:AxiosResponse<regUser | logUser | products[]>){
 
-   export const login =async(username:string,password:string) => {
-    return axios.post('https://junior-test.mntzdevs.com/api/login/',{username,password})
-   }
+    if(response.status === 400)
+    throw new AxiosError('Bad Request','400');
+  else if(response.status === 500)
+  throw new AxiosError('Internal Server Error','500');
+else {
+  const success = response.request;
+   return success.status(200).json(response);
+}
+  }
 
-   export const register = async(data:any) => {
-   try{
-      await axios.post('https://junior-test.mntzdevs.com/api/register/', {
-        Headers:{
-          'Content-Type': 'application/json'
-        },
-        data : {...data}
-      });
-      const loginData = await login(data.username,data.password);
-      console.log(loginData.data)
-   } catch(error:any){console.log(error);}
-   }
-   
+function corsHeaders (response:AxiosResponse<regUser | logUser | products[]>){
+  return [  response.headers.setHeader("Access-Control-Allow-Origin", "*"),
+  response.headers.setHeader("Access-Control-Allow-Credentials", "true"),
+  response.headers.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT"),
+  response.headers.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+]
+}

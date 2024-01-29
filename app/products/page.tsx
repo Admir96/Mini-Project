@@ -1,21 +1,23 @@
 'use client'
-import { useEffect, useState } from 'react';
-import { getProducts } from '@/app/utils';
+import { useState } from 'react';
 import './products.css'
+import { products } from '../interfaces/interfaces';
+import { getProducts } from '../utils';
+
 
 const Products: React.FC = ({}) => {
 
-  const [products, setProduct] = useState({});
+
+  const [products, setProduct] = useState<products[]>();
   const [loading,setLoading] = useState(true);
 
- 
-  useEffect(() => {
- getProducts().then((res:any) => res.data()).then((resp:any) => {
-  setProduct(resp.data);
-  setLoading(false);
- });
-},[]);
-  
+  try{
+   getProducts().then((resp) => setProduct(resp));
+  }catch(error){
+    console.log(error);
+    window.alert('something went wrong, check : ' + `${error}`) ;
+  }
+
 
   return (
     <div className='products'>   
@@ -34,14 +36,14 @@ const Products: React.FC = ({}) => {
         </thead>
 <tbody>
 
-  {Object.values(products).map((product :any) =>(
+  { (products)?.map((product) =>(
     <tr key={product.id}>
       <td className='productsTd'>{product.name}</td>
       <td className='productsTd'>${product.price}</td>
     <td className='productsTd'>
       {product.linkedProducts ? (
         <ul className='productsThead'>
-          {Object.values(product.linkedProducts).map((linkedProduct:any) =>(
+          {Object.values(product.linkedProducts).map((linkedProduct:products) =>(
             <li className='productsTd' key={linkedProduct.name}>
               <span>{linkedProduct.name}</span> - ${linkedProduct.price}
             </li>
@@ -60,7 +62,6 @@ const Products: React.FC = ({}) => {
             page
           </button>
       </div>
-           <h3>Loading...</h3>     
     </div>
       
        </div>
